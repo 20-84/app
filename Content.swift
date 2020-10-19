@@ -2,26 +2,28 @@ import SwiftUI
 
 struct Content: View {
     @State private var index = 0
+    
     var body: some View {
         ZStack {
-            Image("c00_\(index < 10 ? "0\(index)" : "\(index)")")
+            TabView(selection: $index) {
+                ForEach(0 ..< 200) {
+                    Image("c00_\($0 < 10 ? "0\($0)" : "\($0)")")
+                        .tag($0)
+                }
+            }.tabViewStyle(PageTabViewStyle())
             VStack {
-                Spacer()
                 HStack {
-                    Button {
-                        index -= 1
-                    } label: {
-                        Image(systemName: "chevron.left.circle.fill")
-                            .font(.title)
-                    }.padding()
                     Spacer()
                     Button {
-                        index += 1
+                        
                     } label: {
-                        Image(systemName: "chevron.right.circle.fill")
+                        Image(systemName: "line.horizontal.3.circle.fill")
                             .font(.title)
-                    }.padding()
+                            .frame(width: 64, height: 64)
+                            .contentShape(Rectangle())
+                    }
                 }
+                Spacer()
             }
         }
     }
